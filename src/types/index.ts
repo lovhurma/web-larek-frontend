@@ -28,8 +28,40 @@ export interface IOrder {
   items: IProduct['id'][]
 }
 
-// export interface IProductmodal  {
-//   getAllproducts(): IProduct[]
-//   openModal(): void
-// }
+//МОДЕЛЬ ДАННЫХ
+export interface IProductModal extends IProductData  {
+  
+  //Добавление массива карточек
+  addproducts(): IProduct[];
+
+// Метод для получения количества товаров в корзине
+  getBasketAmount(): number;
+
+  //Добавить товар(карточку) в корзину
+  addToBasket(): void;
+
+  //Удалить товар с корзины
+  removeFromBasket(): void;
+  
+  // Метод для полной очистки корзины
+  clearBasket(): void
+
+  //Общая сумма(стоимость) товаров в корзине
+  getBasketPrice(): void;
+
+  // Метод для получения списка ID товаров в корзине 
+  setItems(): void;
+
+  // Метод для заполнения полей email, phone, address, payment 
+  addOrderField(field: string, value: string): void;
+
+  // Валидация форм для окошка "контакты"
+  validateContacts(): boolean;
+
+  // Валидация форм для окошка "заказ"
+  validateOrder(): boolean;
+  
+  // Очистить корзину после покупки товаров
+  cleanOrder(): boolean;
+}
 
