@@ -1,4 +1,3 @@
-
 //Данные получаемые при запросе списка продуктов
 export interface IProductData {
   total: number
@@ -23,14 +22,21 @@ export interface IForm {
   phone: string;
 }
 
-//Данные получаемые при запросе всех продуктов
-export interface IProductData {
-  total: number
-  items: IProduct[]
-}
-
 //Тип формы при заполнении покупателем способа оплаты и адресса 
 export type TFormPayment = Pick <IForm, 'payment' | 'address'>
 
 //Тип формы при заполнении покупателем данных(еmail и номер телефона)
 export type TFormInfo = Pick <IForm, 'email' | 'phone'>
+
+//Сумма заказа и список ID купленных товаров(интерфейс корзины)
+export interface IOrder {
+  totalamount: number
+  items: IProduct['id'][]
+}
+
+// export interface IProductmodal extends IProductData {
+//   getAllproducts(): IProduct[]
+//   openModal(): void
+
+// }
+
