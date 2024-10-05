@@ -15,18 +15,12 @@ export interface IProduct {
 }
 
 //Данные о пользователе
-export interface IForm {
+export interface IOrderData {
   payment: string;
-  address: string;
   email: string;
   phone: string;
+  address: string;
 }
-
-//Тип формы при заполнении покупателем способа оплаты и адресса 
-export type TFormPayment = Pick <IForm, 'payment' | 'address'>
-
-//Тип формы при заполнении покупателем данных(еmail и номер телефона)
-export type TFormInfo = Pick <IForm, 'email' | 'phone'>
 
 //Сумма заказа и список ID купленных товаров(интерфейс корзины)
 export interface IOrder {
@@ -34,9 +28,8 @@ export interface IOrder {
   items: IProduct['id'][]
 }
 
-// export interface IProductmodal extends IProductData {
+// export interface IProductmodal  {
 //   getAllproducts(): IProduct[]
 //   openModal(): void
-
 // }
 
