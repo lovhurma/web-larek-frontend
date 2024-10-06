@@ -54,7 +54,6 @@ export interface IProduct {
   title: string;
   category: string;
   price: number | null
-    selected: boolean;
 }
 ```
 
@@ -87,6 +86,7 @@ export interface IOrderData {
   email: string;
   phone: string;
   address: string;
+  items: IProduct[]
 }
 ```
 
@@ -136,9 +136,9 @@ export interface IOrderData {
 - removeFromBasket(): - Удаление товара с корзины
 - clearBasket(): - Метод для полной очистки корзины
 - getBasketPrice(): - Общая сумма(стоимость) товаров в корзине
-- setItems(): - Метод для получения списка ID товаров в корзине 
+- getItems(): - Метод для получения списка ID товаров в корзине 
 - addOrderField(field: IOrderData, value: string): - Метод для заполнения полей email, phone, address, payment 
 - validateContacts(): - Валидация форм для окошка "контакты"
 - validateOrder(): - Валидация форм для окошка "заказ"
-- cleanOrder(): - Очистка корзины после покупки товаров
-- resetSelected(): - Метод для обновления поля selected во всех товарах после совершения покупки
+- cleanOrder(): - Очистка данных покупателя
+- isItem(): - Метод для проверки наличия товара в корзине
