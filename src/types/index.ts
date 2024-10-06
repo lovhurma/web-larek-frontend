@@ -25,7 +25,7 @@ export interface IOrderData {
 }
 
 //Сумма заказа и список ID купленных товаров(интерфейс корзины)
-export interface IOrder extends IOrderData {
+export interface IOrder {
   totalamount: number
   items: IProduct[]
 }

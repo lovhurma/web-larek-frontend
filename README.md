@@ -90,11 +90,11 @@ export interface IOrderData {
 }
 ```
 
-Сумма заказа и список ID купленных товаров.
+Сумма заказа и список ID купленных товаров в корзине
 
 ```
 
- export interface IOrder extends IOrderData {
+ export interface IOrder {
   totalamount: number
   items: IProduct['id'][]
 }
@@ -127,8 +127,7 @@ export interface IOrderData {
 Класс отвечает за хранение и логику работы с данными.\
 В полях класса хранятся следующие данные:
 - items: IProduct[] - Массив объектов со всеми товарами
-- basket: IProduct[] = [] - корзина с товарами, начальное состояние - пустой массив
-- order: IOrder - Информация о заказе при покупке товара
+- order: IOrderData - Информация о заказе при покупке товара
 
 Так же класс предоставляет набор методов для взаимодействия с этими данными.
 - addproducts(): IProduct[] - Добавление массива карточек
