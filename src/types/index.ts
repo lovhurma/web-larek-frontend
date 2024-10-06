@@ -12,6 +12,8 @@ export interface IProduct {
   title: string;
   category: string;
   price: number | null
+  // был данный товар добавлен в корзину или нет
+  selected: boolean;
 }
 
 //Данные о пользователе
@@ -23,18 +25,18 @@ export interface IOrderData {
 }
 
 //Сумма заказа и список ID купленных товаров(интерфейс корзины)
-export interface IOrder {
+export interface IOrder extends IOrderData {
   totalamount: number
-  items: IProduct['id'][]
+  items: IProduct[]
 }
 
 //МОДЕЛЬ ДАННЫХ
-export interface IProductModal extends IProductData  {
+export interface IProductModal  {
   
   //Добавление массива карточек
   addproducts(): IProduct[];
 
-// Метод для получения количества товаров в корзине
+  // Метод для получения количества товаров в корзине
   getBasketAmount(): number;
 
   //Добавить товар(карточку) в корзину
@@ -53,7 +55,7 @@ export interface IProductModal extends IProductData  {
   setItems(): void;
 
   // Метод для заполнения полей email, phone, address, payment 
-  addOrderField(field: string, value: string): void;
+  addOrderField(field: IOrderData, value: string): void;
 
   // Валидация форм для окошка "контакты"
   validateContacts(): boolean;
@@ -63,5 +65,8 @@ export interface IProductModal extends IProductData  {
   
   // Очистить корзину после покупки товаров
   cleanOrder(): boolean;
+
+  // Метод для обновления поля selected во всех товарах после совершения покупки
+  resetSelected(): void;
 }
 

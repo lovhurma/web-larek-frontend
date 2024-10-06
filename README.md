@@ -54,6 +54,7 @@ export interface IProduct {
   title: string;
   category: string;
   price: number | null
+    selected: boolean;
 }
 ```
 
@@ -78,20 +79,22 @@ export interface IProductData {
   items: IProduct[]
 }
 ```
-Данные о покупателе, используемы при заполнении способа оплаты и адресса 
+Данные о покупателе
 
 ```
-export type TFormPayment = Pick <IForm, 'payment' | 'address'>
+export interface IOrderData {
+  payment: string;
+  email: string;
+  phone: string;
+  address: string;
+}
 ```
-Данные о покупателе, используемы при заполнении данных(еmail и номер телефона)
+
+Сумма заказа и список ID купленных товаров.
 
 ```
-export type TFormInfo = Pick <IForm, 'email' | 'phone'>
-```
-Сумма заказа и список ID купленных товаров
 
-```
- export interface IOrder {
+ export interface IOrder extends IOrderData {
   totalamount: number
   items: IProduct['id'][]
 }
@@ -117,3 +120,26 @@ export type TFormInfo = Pick <IForm, 'email' | 'phone'>
 - `on` - подписка на событие
 - `emit` - инициализация события
 - `trigger` - возвращает функцию, при вызове которой инициализируется требуемое в параметрах событие   
+
+### Слой данных
+
+#### Класс ProductModal
+Класс отвечает за хранение и логику работы с данными.\
+В полях класса хранятся следующие данные:
+- items: IProduct[] - Массив объектов со всеми товарами
+- basket: IProduct[] = [] - корзина с товарами, начальное состояние - пустой массив
+- order: IOrder - Информация о заказе при покупке товара
+
+Так же класс предоставляет набор методов для взаимодействия с этими данными.
+- addproducts(): IProduct[] - Добавление массива карточек
+- getBasketAmount() - Метод для получения количества товаров в корзине
+- addToBasket(): -  Добавление товара(карточки) в корзину
+- removeFromBasket(): - Удаление товара с корзины
+- clearBasket(): - Метод для полной очистки корзины
+- getBasketPrice(): - Общая сумма(стоимость) товаров в корзине
+- setItems(): - Метод для получения списка ID товаров в корзине 
+- addOrderField(field: IOrderData, value: string): - Метод для заполнения полей email, phone, address, payment 
+- validateContacts(): - Валидация форм для окошка "контакты"
+- validateOrder(): - Валидация форм для окошка "заказ"
+- cleanOrder(): - Очистка корзины после покупки товаров
+- resetSelected(): - Метод для обновления поля selected во всех товарах после совершения покупки
