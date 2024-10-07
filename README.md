@@ -50,7 +50,7 @@ yarn build
 export interface IProduct {
   id: string;
   description?: string;
-  image: string;
+  image?: string;
   title: string;
   category: string;
   price: number | null
@@ -62,8 +62,8 @@ export interface IProduct {
 ```
 
 export interface IProductData {
-  total: number
-  items: IProduct[]
+  catalog: IProduct[]
+  counter: number
 }
 ```
 Данные о покупателе
@@ -184,3 +184,36 @@ constructor (container: HTMLElement, protected events: IEvents) Конструк
 Предоставляет методы set phone — устанавливает значение поля телефона и set email — устанавливает значение поля почты
 
 constructor (container: HTMLElement, protected events: IEvents) Конструктор принимает container типа HTMLElement, передавая container в родительский конструктор и объект event типа IEvents
+
+#### Класс Cards
+
+Отвечает за отображение данных карточки товара в каталоге, в модальном окне отдельной карточки и в каталоге корзины. Поля отвечают за связь с разметкой, методы за наполнение разметки данными.\
+Расширяется базовым абстрактным классом Component<T> по интерфейсу IProduct
+
+Предоставляет методы setData(cardData: IProduct) — заполняет атрибуты элементов карточки
+
+constructor (container: HTMLElement, protected events: IEvents) Конструктор принимает container типа HTMLElement, передавая container в родительский конструктор и объект event типа IEvents
+
+Поля класса
+- _id — хранит id карточки
+- _description - хранит описание карточки
+- _image -  хранит разметку изображения карточки
+- _title: -  хранит разметку заголовка карточки
+- _category: -  хранит разметку категории карточки
+- _price - хранит разметку цены карточки
+
+#### Класс Page
+
+Отвечает за отображение данных составляющих элементов страницы: каталог, корзина, счетчик товаров в корзине\
+Расширяется базовым абстрактным классом Component<T> по интерфейсу IProductData
+Поля отвечают за связь с разметкой, методы за наполнение разметки данными, а также метод закрытия/открытия для прокрутки страницы при открытии/закрытии модального окна.
+
+Предоставляет методы - set counter - счётчик товаров в корзине, set catalog -   // отображение карточек товаров на странице, set locked -   устанавливает класс, блокирующий прокрутку страницы
+
+constructor (container: HTMLElement, protected events: IEvents) Конструктор принимает container типа HTMLElement, передавая container в родительский конструктор и объект event типа IEvents
+
+Поля класса
+- _counter — хранит рамзетку счетчика товаров в корзине
+- _catalog — хранит разметку каталога товаров
+- wrapper — хранит разметку обертки страницы
+- basket — хранит разметку кнопки корзины

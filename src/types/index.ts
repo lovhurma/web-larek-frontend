@@ -1,14 +1,14 @@
 //Данные получаемые при запросе списка продуктов
 export interface IProductData {
-  total: number
-  items: IProduct[]
+  catalog: IProduct[]
+  counter: number
 }
 
 //Данные о конкретном продукте в массиве
 export interface IProduct {
   id: string;
   description?: string;
-  image: string;
+  image?: string;
   title: string;
   category: string;
   price: number | null
