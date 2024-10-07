@@ -57,18 +57,6 @@ export interface IProduct {
 }
 ```
 
-Данные о покупателе
-
-```
-
-export interface IForm {
-  payment: string;
-  address: string;
-  email: string;
-  phone: string;
-}
-```
-
 Модель для хранения данных карточек продуктов
 
 ```
@@ -82,11 +70,11 @@ export interface IProductData {
 
 ```
 export interface IOrderData {
-  payment: string;
-  email: string;
-  phone: string;
-  address: string;
-  items: IProduct[]
+  payment?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  items?: IProduct[]
 }
 ```
 
@@ -142,3 +130,57 @@ export interface IOrderData {
 - validateOrder(): - Валидация форм для окошка "заказ"
 - cleanOrder(): - Очистка данных покупателя
 - isItem(): - Метод для проверки наличия товара в корзине
+
+### Классы представления
+
+#### Класс Modal
+Отвечает за отображение модального окна.\
+Расширяется базовым абстрактным классом Component<T>
+Так же предоставляет методы open и close для управления отображением модального окна, render для отрисовки данных контента, и set сontetnt для  установки контента модального окна. Устанавливает слушатели на клавиатуру, для закрытия модального окна по Esc, на клик в оверлей и кнопку-крестик для закрытия попапа.  
+constructor (container: HTMLElement, protected events: IEvents) Конструктор принимает container типа HTMLElement, передавая container в родительский конструктор и объект event типа IEvents
+
+Поля класса
+- closeButton — разметка кнопки закрытия модального окна
+- content — разметка контейнера для контента модального окна
+
+#### Класс Basket
+Класс, описывающий корзину товаров\
+Расширяется базовым абстрактным классом Component<T>
+Предоставляет методы set list — устанавливает товары в разметку, set price — устанавливает значение суммы товаров
+
+constructor (container: HTMLElement, protected events: IEvents) Конструктор принимает container типа HTMLElement, передавая container в родительский конструктор и объект event типа IEvents
+
+Поля класса
+- _list — отображение списка товаров в корзине
+- _price — отображение cуммы товаров в корзине
+- button — разметка кнопки перехода на шаг оформления заказа
+
+#### Класс Form<T>
+Отвечает за основные способы работы с формой и ее валидацию.\
+Расширяется базовым абстрактным классом Component<T>
+Предоставляет методы onInputChange — регистрирует событие с именем конкретного поля, set valid — метод установки валидности, set errors — метод установки ошибки, render — отрисовка формы и ее элементов
+
+constructor (container: HTMLElement, protected events: IEvents) Конструктор принимает container типа HTMLElement, передавая container в родительский конструктор и объект event типа IEvents
+
+Поля класса
+- _submit — хранит разметку кнопки отправки формы
+- _errors — хранит разметку вывода ошибок валидации
+
+#### Класс Order
+
+Отвечает за отображение выбора способо оплаты и адресса покупателя в модальном окне.\
+Расширяется классом Form<T> по интерфейсу IOrderData
+Предоставляет методы set payment — устанавливает класс активности на кнопку и set address — устанавливает значение поля адрес
+
+constructor (container: HTMLElement, protected events: IEvents) Конструктор принимает container типа HTMLElement, передавая container в родительский конструктор и объект event типа IEvents
+
+Поля класса
+- buttons — хранит разметку кнопок формы оплаты
+
+#### Класс Contacts
+
+Отвечает за отображение контактов покупателя в модальном окне.\
+Расширяется классом Form<T> по интерфейсу IOrderData
+Предоставляет методы set phone — устанавливает значение поля телефона и set email — устанавливает значение поля почты
+
+constructor (container: HTMLElement, protected events: IEvents) Конструктор принимает container типа HTMLElement, передавая container в родительский конструктор и объект event типа IEvents
