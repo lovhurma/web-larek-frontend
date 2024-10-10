@@ -7,8 +7,8 @@ export interface IProductData {
 //Данные о конкретном продукте в массиве
 export interface IProduct {
   id: string;
-  description?: string;
-  image?: string;
+  description: string;
+  image: string;
   title: string;
   category: string;
   price: number | null
