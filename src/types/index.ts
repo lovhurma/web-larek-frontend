@@ -20,7 +20,7 @@ export interface IOrderData {
   email: string;
   phone: string;
   address: string;
-  items?: IProduct[]
+  // items?: IProduct[]
 }
 
 export interface IOrderForm {
@@ -34,6 +34,9 @@ export interface IOrder {
   totalamount: number
   items: IProduct[]
 }
+
+//Тип FormErrors будет использоваться для описания объектов, которые могут содержать сообщения об ошибках, связанных с формами, где ключи соответствуют полям формы, определенным в IOrderData
+export type FormErrors = Partial<Record<keyof IOrderData, string>>
 
 //МОДЕЛЬ ДАННЫХ
 export interface IProductModal  {
@@ -72,6 +75,6 @@ export interface IProductModal  {
   cleanOrder(): boolean;
 
   // Метод для проверки наличия товара в корзине
-  isItem(): boolean;
+  isProductInBasket(): boolean;
 }
 
