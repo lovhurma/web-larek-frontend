@@ -16,11 +16,17 @@ export interface IProduct {
 
 //Данные о пользователе
 export interface IOrderData {
-  payment?: string;
-  email?: string;
-  phone?: string;
-  address?: string;
+  payment: string;
+  email: string;
+  phone: string;
+  address: string;
   items?: IProduct[]
+}
+
+export interface IOrderForm {
+  email: string;
+  phone: string;
+  adress: string;
 }
 
 //Сумма заказа и список ID купленных товаров(интерфейс корзины)
