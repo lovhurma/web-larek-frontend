@@ -3,43 +3,51 @@ import { IProductModal, IProduct, IOrderData, FormErrors } from "../../types";
 
 export class ProductModel extends Model<IProductModal> {
   items: IProduct[] 
-  basket: IProduct [] 
+  preview: string
+  basket: IProduct[] = []
   order: IOrderData 
   formErrors: FormErrors = {}
 
-  // Добавление массива карточек 
+  // +Добавление массива карточек 
   addproducts(cards: IProduct[]) {
     this.items = cards
-    this.events.emit('items:changed')
+    this.events.emit('items:changed', {items: this.items})
   }
-  // Метод для получения количества товаров в корзине
+  //+Получаю данные карточки при клике на карточку в каталоге
+  setPreview(card: IProduct) {
+    this.preview = card.id
+    this.events.emit('prepreview:change', card)
+  }
+  // +Метод для получения количества товаров в корзине
   getBasketAmount(): number {
     return this.basket.length
   }
-  //Добавление товара(карточки) в корзину
+  //+Добавление товара(карточки) в корзину
   addToBasket(card: IProduct): void {
+    console.log('метод вызван')
     this.basket.push(card)
   }
-  //Удаление товара с корзины
+  //+Удаление товара с корзины
   removeFromBasket(id:string): void {
     this.basket = this.basket.filter(item => item.id !== id)
   }
- //Метод для полной очистки корзины
+ //+Метод для полной очистки корзины
   clearBasket(): void {
     this.basket = []
   }
-  //Общая сумма(стоимость) товаров в корзине
+  //+Общая сумма(стоимость) товаров в корзине
   getBasketPrice() {
-    this.basket.reduce((sum, next) => sum + next.price, 0)
+    return this.basket.reduce((sum, next) => sum + next.price, 0)
   }
-  //Метод для получения списка ID товаров в корзине
+  //+Метод для получения списка ID товаров в корзине
   getItems() {
   return this.basket.map(item => item.id)
   }
   //Метод для заполнения полей email, phone, address, payment
-  addOrderField(field: keyof IOrderData, value: string): void {
+  addOrderField(field: keyof IOrderData, value: string) {
     this.order[field] = value
   }
+
   //Валидация форм для окошка "заказ"
   validateOrder(): boolean {
     const errors: typeof this.formErrors = {} 
@@ -80,7 +88,7 @@ export class ProductModel extends Model<IProductModal> {
   //   }
   // }
 }
-  //Метод для проверки наличия товара в корзине. Метод some перебирает массив basket и проверяет, есть ли хотя бы один элемент, который удовлетворяет условию
+  //+Метод для проверки наличия товара в корзине. Метод some перебирает массив basket и проверяет, есть ли хотя бы один элемент, который удовлетворяет условию
   isProductInBasket(product: IProduct): boolean {
     return this.basket.some(item => item.id === product.id)
   }

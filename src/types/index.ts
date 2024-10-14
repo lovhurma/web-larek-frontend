@@ -16,11 +16,10 @@ export interface IProduct {
 
 //Данные о пользователе
 export interface IOrderData {
-  payment: string;
-  email: string;
-  phone: string;
-  address: string;
-  // items?: IProduct[]
+  payment?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
 }
 
 export interface IOrderForm {
@@ -33,6 +32,10 @@ export interface IOrderForm {
 export interface IOrder {
   totalamount: number
   items: IProduct[]
+}
+
+export interface IOrderResponse {
+  id: string
 }
 
 //Тип FormErrors будет использоваться для описания объектов, которые могут содержать сообщения об ошибках, связанных с формами, где ключи соответствуют полям формы, определенным в IOrderData
