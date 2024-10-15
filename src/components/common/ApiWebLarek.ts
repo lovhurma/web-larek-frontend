@@ -8,7 +8,7 @@ class LarekApi extends Api {
   super(baseUrl, options)
   this.cdn = cdn
   }
-
+  //Мap используется для создания нового массива из оригинальных объектов продуктов, гарантируя, что оригинальные данные останутся неизменными.
   getItemsList() {
     return this.get('/prodact')
     .then((data: ApiListResponse<IProduct>) => {

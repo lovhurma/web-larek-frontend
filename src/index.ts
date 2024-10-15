@@ -88,15 +88,15 @@ const baskettest1 = {
   model.clearBasket()
   console.log(model.getBasketAmount())
 
-  // //Тест валидатора
-  // console.log('Testing validateOrder...');
-  // const isValid = model.validateOrder();
-  // console.log('Is order valid?', isValid); // Должно отражать ошибку
+  //Тест валидатора
+  console.log('Testing validateOrder...');
+  const isValid = model.validateOrder();
+  console.log('Is order valid?', isValid); // Должно отражать ошибку
 
-  // // Тест форм
-  // console.log('Initial Order:', model.order);
-  // model.addOrderField('address', '123 Main St');
-  // console.log('Updated Order:', model.order); // Проверка текущего состояния
+  // Тест форм
+  console.log('Initial Order:', model.order);
+  model.addOrderField('address', '123 Main St');
+  console.log('Updated Order:', model.order); // Проверка текущего состояния
 
 
 

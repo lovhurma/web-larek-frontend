@@ -66,10 +66,10 @@ export class ProductModel extends Model<IProductModal> {
   validateContacts(): boolean {
     const errors: typeof this.formErrors = {} 
     if(!this.order.email) {
-      errors.address = 'Необходимо указать email'
+      errors.email = 'Необходимо указать email'
     }
     if(!this.order.phone) {
-      errors.payment = 'Необходимо указать номер телефона'
+      errors.phone = 'Необходимо указать номер телефона'
     }
     this.formErrors = errors
     this.events.emit('input:error', this.formErrors)
