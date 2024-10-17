@@ -83,7 +83,7 @@ export interface IOrderData {
 
  export interface IOrder {
   totalamount: number
-  items: IProduct['id'][]
+  productListElement: IProduct['id'][]
 }
 ```
 ## Архитектура приложения
@@ -238,18 +238,22 @@ constructor (container: HTMLElement, protected events: IEvents) Конструк
 Отвечает за отображение данных карточки товара в каталоге, в модальном окне отдельной карточки и в каталоге корзины. Поля отвечают за связь с разметкой, методы за наполнение разметки данными.\
 Рассширяет базовый абстрактный класс Component<T> по интерфейсу IProduct
 
-constructor (container: HTMLElement, protected events: IEvents) Конструктор принимает container типа HTMLElement, передавая container в родительский конструктор и объект event типа IEvents
+constructor (container: HTMLElement, action?: ICardAction) Конструктор принимает container типа HTMLElement, передавая container в родительский конструктор и объект action типа ICardAction для установки слушателя на кнопку или контейнер
 
 Поля класса
-- cardId — хранит id карточки
-- cardDescription - хранит описание карточки
-- cardImage -  хранит разметку изображения карточки
-- cardTitle: -  хранит разметку заголовка карточки
-- cardCategory: -  хранит разметку категории карточки
-- cardPrice - хранит разметку цены карточки
+- _description - хранит описание карточки
+- _image -  хранит разметку изображения карточки
+- _title: -  хранит разметку заголовка карточки
+- _category: -  хранит разметку категории карточки
+- _price - хранит разметку цены карточки
 
 Методы класса
-- setData(cardData: IProduct) — заполняет атрибуты элементов карточки
+- set id - устанавливает id карточки
+- set price - устанавливает стоимость карточки
+- set title - устанавливает заголовок карточки
+- set description - устанавливает описание карточки
+- set image - устанавливает изображение карточки
+- set category - устанавливает категорию карточки
 
 #### Класс Page
 

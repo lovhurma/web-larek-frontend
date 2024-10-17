@@ -4,7 +4,7 @@ export interface IProductData {
   counter: number
 }
 
-//Данные о конкретном продукте в массиве
+//Данные о конкретном продукте в массиве с апи
 export interface IProduct {
   id: string;
   description: string;
@@ -31,7 +31,7 @@ export interface IOrderForm {
 //Сумма заказа и список ID купленных товаров(интерфейс корзины)
 export interface IOrder {
   totalamount: number
-  items: IProduct[]
+  productListElement: IProduct[]
 }
 
 export interface IOrderResponse {

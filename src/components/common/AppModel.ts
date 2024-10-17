@@ -2,11 +2,11 @@ import { Model } from "../base/Model";
 import { IProductModal, IProduct, IOrderData, FormErrors } from "../../types";
 
 export class ProductModel extends Model<IProductModal> {
-  items: IProduct[] 
-  preview: string
-  basket: IProduct[] = []
-  order: IOrderData 
-  formErrors: FormErrors = {}
+  protected  items: IProduct[] 
+  protected  preview: string
+  protected  basket: IProduct[] = []
+  protected  order: IOrderData = {}
+  protected  formErrors: FormErrors = {}
 
   // +Добавление массива карточек 
   addproducts(cards: IProduct[]) {
