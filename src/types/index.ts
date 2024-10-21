@@ -28,6 +28,12 @@ export interface IOrderForm {
   adress: string;
 }
 
+export interface IForm {
+  valid: boolean
+  errors: string[]
+  
+}
+
 //Сумма заказа и список ID купленных товаров(интерфейс корзины)
 export interface IOrder {
   totalamount: number

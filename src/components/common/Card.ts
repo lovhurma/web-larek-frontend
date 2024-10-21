@@ -21,8 +21,8 @@ export class Card extends Component<ICard> {
     constructor(container: HTMLElement, action?: ICardAction) {
     super(container)
 
-    this._price = ensureElement<HTMLElement>('.card__price', this.container)
-    this._title = ensureElement<HTMLElement>('.card__title', this.container)
+    this._price = ensureElement<HTMLElement>('.card__price', container)
+    this._title = ensureElement<HTMLElement>('.card__title', container)
     this.button = container.querySelector('.card__button')
 
     if(action?.onClick) {
@@ -59,8 +59,8 @@ export class CardCatalog extends Card {
   constructor(container: HTMLElement, action?: ICardAction) {
     super(container, action)
 
-    this._image = ensureElement<HTMLImageElement>('.card__image', this.container)
-    this._category = ensureElement<HTMLElement>('.card__category', this.container)
+    this._image = ensureElement<HTMLImageElement>('.card__image', container)
+    this._category = ensureElement<HTMLElement>('.card__category', container)
   }
 
   set image(value: string) {
@@ -80,7 +80,7 @@ export class CardPreview extends CardCatalog {
   constructor(container: HTMLElement, action?: ICardAction) {
     super(container, action)
 
-    this._description = ensureElement<HTMLElement>('.card__text', this.container)
+    this._description = ensureElement<HTMLElement>('.card__text', container)
   }
 
   set description(value: string) {
