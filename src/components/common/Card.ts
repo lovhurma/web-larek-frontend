@@ -6,14 +6,16 @@ interface ICardAction {
   onClick: (event: MouseEvent) => void
 }
 
-export interface ICard {
-  id: string
-  price: number
-  title: string
-}
+// export interface ICard {
+//   id: string
+//   price: number
+//   title: string
+//   category: string
+//   image: string
+// }
 
 //Общий класс, он же будет использоваться для корзины
-export class Card extends Component<ICard> {
+export class Card extends Component<IProduct> {
   _price: HTMLElement
   _title: HTMLElement
   button?: HTMLButtonElement

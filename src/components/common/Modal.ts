@@ -6,11 +6,11 @@ interface IModal {
   content: HTMLElement
 }
 
-export class Model extends Component<IModal> {
+export class Modal extends Component<IModal> {
   closeButton: HTMLButtonElement
   _content: HTMLElement
 
-  constructor(protected container: HTMLFormElement, protected events: IEvents) {
+  constructor(protected container: HTMLElement, protected events: IEvents) {
     super(container)
 
     this.closeButton = ensureElement<HTMLButtonElement>('.modal__close', container)

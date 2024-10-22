@@ -4,10 +4,10 @@ import { Component } from "../base/Component";
 import { IEvents } from "../base/events";
 
 export class Page extends Component<IProductData> {
-  basketCounter: HTMLElement
-  basket: HTMLElement
-  wrapper: HTMLElement
-  productCatalog: HTMLElement
+  protected  basketCounter: HTMLElement
+  protected  basket: HTMLElement
+  protected  wrapper: HTMLElement
+  protected  productCatalog: HTMLElement
 
   constructor(container: HTMLElement, protected events: IEvents) {
     super(container)
