@@ -47,6 +47,8 @@ export interface IOrderResponse {
 //Тип FormErrors будет использоваться для описания объектов, которые могут содержать сообщения об ошибках, связанных с формами, где ключи соответствуют полям формы, определенным в IOrderData
 export type FormErrors = Partial<Record<keyof IOrderData, string>>
 
+export type PaymentMethod = 'cash' | 'online' | null
+
 //МОДЕЛЬ ДАННЫХ
 export interface IProductModal  {
   
