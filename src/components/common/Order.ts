@@ -16,10 +16,9 @@ protected  buttonСard: HTMLButtonElement
     this.buttonСard = ensureElement<HTMLButtonElement>('.button_alt[name=card]', container)
 
     this.buttonСash.addEventListener('click', () => {
-      //payment для брокера
       this.onInputChange('payment', 'cash')
     })
-    
+
     this.buttonСard.addEventListener('click', () => {
       this.onInputChange('payment', 'card')
     })

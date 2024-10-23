@@ -20,7 +20,7 @@ protected  formErrors: FormErrors = {}
   //+Получаю данные карточки при клике на карточку в каталоге
   setPreview(card: IProduct) {
     this.preview = card
-    this.events.emit('prepreview:change', this.preview)
+    this.events.emit('preview:changed', this.preview)
   }
   // +Метод для получения количества товаров в корзине
   getBasketAmount(): number {
@@ -60,7 +60,7 @@ protected  formErrors: FormErrors = {}
   addOrderField(field: keyof IOrderData, value: string) {
     this.order[field] = value
 
-    if(this.order.payment && this.validateOrder()) {
+    if(this.validateOrder()) {
       this.events.emit('order:ready', this.order)
     }
   }
