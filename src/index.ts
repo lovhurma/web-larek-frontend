@@ -42,6 +42,7 @@ const contacs = new Contacts(cloneTemplate<HTMLFormElement>(modalContactsTmpl), 
 
 // Дальше идет бизнес-логика
 // Поймали событие, сделали что нужно
+console.log('jebfhbrejhbfjhewb')
 console.log( 'Список карточек1', model.getallItems())
 
 //Получаем массив карточек с сервера

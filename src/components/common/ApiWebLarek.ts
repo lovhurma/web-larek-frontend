@@ -10,9 +10,12 @@ export class LarekApi extends Api {
   }
   //Мap используется для создания нового массива из оригинальных объектов продуктов, гарантируя, что оригинальные данные останутся неизменными.
   getItemsList() {
-    return this.get('/prodact')
+    return this.get('/product')
     .then((data: ApiListResponse<IProduct>) => {
-      return data.items.map(item => ({...item}))
+    return data.items.map(item => ({...item, 
+      image: this.cdn + item.image
+    }))
+
     })
   }
   

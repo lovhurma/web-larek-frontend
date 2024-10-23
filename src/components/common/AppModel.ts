@@ -58,11 +58,8 @@ protected  formErrors: FormErrors = {}
 
   //Метод для заполнения полей email, phone, address, payment
   addOrderField(field: keyof IOrderData, value: string) {
-    if(field = 'payment') {
-      this.setPaymentMethood(value as PaymentMethod)
-    } else {
-      this.order[field] = value
-    }
+    this.order[field] = value
+
     if(this.order.payment && this.validateOrder()) {
       this.events.emit('order:ready', this.order)
     }

@@ -13,16 +13,14 @@ protected  buttonСard: HTMLButtonElement
     super(container, events)
 
     this.buttonСash = ensureElement<HTMLButtonElement>('.button_alt[name=cash]', container)
-    this.buttonСard = ensureElement<HTMLButtonElement>('.button_alt[name=rard]', container)
+    this.buttonСard = ensureElement<HTMLButtonElement>('.button_alt[name=card]', container)
 
     this.buttonСash.addEventListener('click', () => {
-      this.payment = 'cash'
       //payment для брокера
       this.onInputChange('payment', 'cash')
     })
-
+    
     this.buttonСard.addEventListener('click', () => {
-      this.payment = 'card'
       this.onInputChange('payment', 'card')
     })
   }
