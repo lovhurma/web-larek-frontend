@@ -5,8 +5,8 @@ import { IEvents } from "../base/events";
 
 
 export class Form<T> extends Component<IForm> {
-  submitButton: HTMLButtonElement
-  errorsElements: HTMLElement
+  protected submitButton: HTMLButtonElement
+  protected errorsElements: HTMLElement
 
   constructor(protected container: HTMLFormElement, protected events: IEvents) {
     super(container)

@@ -1,12 +1,12 @@
 import { ensureElement } from "../../utils/utils"
 import { Component } from "../base/Component"
 
-interface ISuccessAction {
+export interface ISuccessAction {
   onClick: () => void
 }
 
-interface ISucces {
-  totalAmount: number
+export interface ISucces {
+  total: number
 }
 
 export class Success extends Component<ISucces> {
@@ -17,7 +17,7 @@ export class Success extends Component<ISucces> {
     super(container)
 
     this.totalAmount = ensureElement<HTMLElement>('.order-success__description', this.container)
-    this.closeBut = ensureElement<HTMLButtonElement>('.order-success__close')
+    this.closeBut = ensureElement<HTMLButtonElement>('.order-success__close', this.container)
 
     if(actions?.onClick) {
       this.closeBut.addEventListener('click', actions.onClick)

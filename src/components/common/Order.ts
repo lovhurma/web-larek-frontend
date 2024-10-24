@@ -30,6 +30,11 @@ protected  buttonСard: HTMLButtonElement
     this.buttonСard.classList.toggle('button_alt-active', value === 'card')    
   }
 
+  disableButtons() {
+    this.buttonСard.classList.remove('button_alt-active')
+    this.buttonСash.classList.remove('button_alt-active')
+  }
+
   set address(value: string) {
   (this.container.elements.namedItem('address') as HTMLInputElement).value = value
   }

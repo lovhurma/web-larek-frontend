@@ -9,7 +9,8 @@ import { Modal } from './components/common/Modal';
 import { Basket } from './components/common/Basket';
 import { Contacts, Order } from './components/common/Order';
 import { Card, CardCatalog, CardPreview } from './components/common/Card';
-import { IOrderData, IProduct } from './types';
+import { IOrderData, IOrderResponse, IProduct } from './types';
+import { ISucces, Success } from './components/common/Success';
 
 const api = new LarekApi(CDN_URL, API_URL)
 const events = new EventEmitter()
@@ -114,7 +115,6 @@ events.on('card:toBasket', (item: IProduct) => {
 
 //Открытие корзины
 events.on('basket:open', () => {
-  page.locked = true
   //Создаю кароточку и рендерю
   //создаю переменную для счетчика
   let i = 1
@@ -193,6 +193,69 @@ events.on('orderInput:change', (data: { field: keyof IOrderData, value: string }
   if(data.field === 'payment') {
     order.payment = model.getField()
   }
+})
+
+//Заполнение контактов
+events.on('order:submit', () => {
+// const order = model.getOrder()
+// order.total = model.getBasketPrice()
+// const items = model.getBasket()
+// const payload: IOrderResponse = {
+//   payment: order.payment,
+//   email: order.email,
+//   phone: order.phone,
+//   address: order.address,
+//   total: order.total,
+//   items: items
+// }
+  modal.render({
+    content: contacts.render(
+      {
+        valid: false,
+        errors: []
+      }
+    ),
+  })
+})
+
+events.on('contacts:submit', () => {
+  // Получаем данные о заказе
+  const order = model.getOrder()
+  // Обновляем сумму (total)
+  order.total = model.getBasketPrice()
+  // Получаем массив id из корзины
+  const items = model.getBasketId()
+  // Формируем итоговый объект для отправки на сервер
+  const payload: IOrderResponse = {
+  payment: order.payment,
+  email: order.email,
+  phone: order.phone,
+  address: order.address,
+  total: order.total,
+  items: items
+}
+  api.postOrder(payload)
+  .then((result) => {
+    console.log(payload)
+    events.emit('order:success', result)
+  })
+})
+
+events.on('order:success', (result: ISucces) => {
+  const success = new Success(cloneTemplate(modalSuccessTmpl), {
+    onClick: () => {
+      modal.close()
+      model.clearBasket()
+      page.counter = model.getBasketAmount()
+      order.disableButtons()
+    }
+  })
+
+  modal.render({
+    content: success.render({
+      total: model.getBasketPrice()
+    })
+  })
 })
 
 // Блокирую прокрутку страницы если открыта модалка

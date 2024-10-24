@@ -22,6 +22,7 @@ export interface IOrderData {
   email?: string;
   phone?: string;
   address?: string;
+  total?: string | number;
 }
 
 export interface IOrderForm {
@@ -42,8 +43,8 @@ export interface IOrder {
   list: HTMLElement[]
 }
 
-export interface IOrderResponse {
-  id: string
+export interface IOrderResponse extends IOrderData {
+  items: string[]
 }
 
 //Тип FormErrors будет использоваться для описания объектов, которые могут содержать сообщения об ошибках, связанных с формами, где ключи соответствуют полям формы, определенным в IOrderData

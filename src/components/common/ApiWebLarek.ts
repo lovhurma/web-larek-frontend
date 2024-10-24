@@ -19,7 +19,7 @@ export class LarekApi extends Api {
     })
   }
   
-  //Пока не совсем понимаю, зачем мне этот метод, сделала по аналогии с "ОНО ТЕБЕ НАДО"
+  //Пока используется для отправки заказа
   postOrder(order: IOrderResponse) {
     return this.post('/order', order)
     .then((data: IOrderResponse) => data)
