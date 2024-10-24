@@ -38,10 +38,6 @@ export class Form<T> extends Component<IForm> {
       field, 
       value
     })
-    // this.events.emit(`${this.container.name}.${String(field)}:change`, {
-    //   field, 
-    //   value
-    // })
   }
   //Оператор ! инвертирует значение value. Если value равно true, !value будет false, и кнопка будет активно доступной. И наоборот
   set valid(value: boolean) {

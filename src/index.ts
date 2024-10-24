@@ -1,14 +1,14 @@
 import './scss/styles.scss';
 import { EventEmitter } from './components/base/events'
 import { API_URL, CDN_URL } from './utils/constants';
-import { ProductModel } from './components/common/AppModel';
-import { LarekApi } from './components/common/ApiWebLarek';
+import { ProductModel } from './components/AppModel';
+import { LarekApi } from './components/ApiWebLarek';
 import { cloneTemplate, ensureElement } from './utils/utils';
-import { Page } from './components/common/Page';
+import { Page } from './components/Page';
 import { Modal } from './components/common/Modal';
 import { Basket } from './components/common/Basket';
-import { Contacts, Order } from './components/common/Order';
-import { Card, CardCatalog, CardPreview } from './components/common/Card';
+import { Contacts, Order } from './components/Order';
+import { Card, CardCatalog, CardPreview } from './components/Card';
 import { IOrderData, IOrderResponse, IProduct } from './types';
 import { ISucces, Success } from './components/common/Success';
 
@@ -197,17 +197,6 @@ events.on('orderInput:change', (data: { field: keyof IOrderData, value: string }
 
 //Заполнение контактов
 events.on('order:submit', () => {
-// const order = model.getOrder()
-// order.total = model.getBasketPrice()
-// const items = model.getBasket()
-// const payload: IOrderResponse = {
-//   payment: order.payment,
-//   email: order.email,
-//   phone: order.phone,
-//   address: order.address,
-//   total: order.total,
-//   items: items
-// }
   modal.render({
     content: contacts.render(
       {

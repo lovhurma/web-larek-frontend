@@ -1,18 +1,10 @@
-import { IProduct } from "../../types";
-import { ensureElement } from "../../utils/utils";
-import { Component } from "../base/Component";
+import { IProduct } from "../types";
+import { ensureElement } from "../utils/utils";
+import { Component } from "../components/base/Component";
 
 interface ICardAction {
   onClick: (event: MouseEvent) => void
 }
-
-// export interface ICard {
-//   id: string
-//   price: number
-//   title: string
-//   category: string
-//   image: string
-// }
 
 //Общий класс, он же будет использоваться для корзины
 export class Card extends Component<IProduct> {
@@ -104,58 +96,3 @@ export class CardPreview extends CardCatalog {
   }
 
 }
-
-// export class Card extends Component<IProduct> {
-//   _price: HTMLElement
-//   _title: HTMLElement
-//   _description?: HTMLElement
-//   _image?: HTMLImageElement
-//   _category?: HTMLElement
-//   _button?: HTMLButtonElement
-
-//   constructor(container: HTMLElement, action?: ICardAction) {
-//     super(container)
-
-//     this._price = ensureElement<HTMLElement>('.card__price', container)
-//     this._title = ensureElement<HTMLElement>('.card__title', container)
-
-//     this._description = container.querySelector('.card__text')
-//     this._image = container.querySelector('.card__image')
-//     this._category = container.querySelector('.card__category')
-
-//     if(action?.onClick) {
-//       if(this._button) {
-//         this._button.addEventListener('click', action.onClick)
-//       } else {
-//         container.addEventListener('click', action.onClick)
-//       }
-//     }
-//   }
-
-//   set id(value: string) {
-//     this.container.dataset.id = value
-//   }
-
-//   set price(value: number) {
-//     this.setText(this._price, value ? `${value} синапсов` : 'Бесценно')
-//     if(this._button) {
-//       this._button.disabled = !value
-//     }
-//   }
-
-//   set title(value: string) {
-//     this.setText(this._title, value)
-//   }
-
-//   set description(value: string) {
-//     this.setText(this._description, value)
-//   }
-
-//   set image(value: string) {
-//     this.setImage(this._image, value, this.title)
-//   }
-
-//   set category(value: string) {
-//     this.setText(this._category, value)
-//   }
-// }

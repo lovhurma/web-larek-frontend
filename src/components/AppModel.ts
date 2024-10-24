@@ -1,5 +1,5 @@
-import { Model } from "../base/Model";
-import { IProductModal, IProduct, IOrderData, FormErrors, PaymentMethod, IOrderResponse } from "../../types";
+import { Model } from "../components/base/Model";
+import { IProductModal, IProduct, IOrderData, FormErrors, PaymentMethod, IOrderResponse } from "../types";
 
 export class ProductModel extends Model<IProductModal> {
 protected  items: IProduct[] 
