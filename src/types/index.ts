@@ -12,6 +12,8 @@ export interface IProduct {
   title: string;
   category: string;
   price: number | null
+  button?: string
+  index?: number
 }
 
 //Данные о пользователе
@@ -36,8 +38,8 @@ export interface IForm {
 
 //Сумма заказа и список ID купленных товаров(интерфейс корзины)
 export interface IOrder {
-  totalamount: number
-  productListElement: IProduct[]
+  total: number
+  list: HTMLElement[]
 }
 
 export interface IOrderResponse {

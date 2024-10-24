@@ -8,8 +8,8 @@ import { Page } from './components/common/Page';
 import { Modal } from './components/common/Modal';
 import { Basket } from './components/common/Basket';
 import { Contacts, Order } from './components/common/Order';
-import { CardCatalog, CardPreview } from './components/common/Card';
-import { IProduct } from './types';
+import { Card, CardCatalog, CardPreview } from './components/common/Card';
+import { IOrderData, IProduct } from './types';
 
 const api = new LarekApi(CDN_URL, API_URL)
 const events = new EventEmitter()
@@ -39,7 +39,7 @@ const modal = new Modal(ensureElement<HTMLElement>('#modal-container'), events)
 // Переиспользуемые части интерфейса
 const basket = new Basket(cloneTemplate<HTMLTemplateElement>(modalBasketTmpl),events)
 const order = new Order(cloneTemplate<HTMLFormElement>(modalOrderTmpl), events)
-const contacs = new Contacts(cloneTemplate<HTMLFormElement>(modalContactsTmpl), events)
+const contacts = new Contacts(cloneTemplate<HTMLFormElement>(modalContactsTmpl), events)
 
 // Дальше идет бизнес-логика
 // Поймали событие, сделали что нужно
@@ -75,10 +75,20 @@ events.on('card:selected', (item: IProduct) => {
 })
 //Передаю данные в отображение, отрисовываю карточку в модалке
 events.on('preview:changed', (item: IProduct) => {
-  page.locked = true
-  //Создаю шаблон карточки для превью и вешаю слушатель, при нажатии на кнопку, карточка будет добавляться в корзину
+  // page.locked = true
+  // Проверяем, находится ли продукт в корзине
+  const isInBasket = model.isProductInBasket(item);
+  //Создаю шаблон карточки для превью и вешаю слушатель, при нажатии на кнопку, карточка будет добавляться/удаляться
   const card = new CardPreview(cloneTemplate(cardPreviewTemplate), {
-    onClick: () => events.emit('card:toBasket', item)
+    onClick: () => {
+      if (isInBasket) {
+          // если в корзине, удаляем из корзины
+          events.emit('basket:remove', item);
+      } else {
+          // если не в корзине, добавляем в корзину
+          events.emit('card:toBasket', item);
+      }
+  }
   })
 
   modal.render({
@@ -88,7 +98,8 @@ events.on('preview:changed', (item: IProduct) => {
       price: item.price,
       category: item.category,
       image: item.image,
-      description: item.description
+      description: item.description,
+      button: isInBasket ? 'Удалить из корзины' : 'В корзину',
     })
   })
 
@@ -100,3 +111,98 @@ events.on('card:toBasket', (item: IProduct) => {
   page.counter = model.getBasketAmount()
   modal.close()
 })
+
+//Открытие корзины
+events.on('basket:open', () => {
+  page.locked = true
+  //Создаю кароточку и рендерю
+  //создаю переменную для счетчика
+  let i = 1
+  const basketItems = model.getBasket().map((item) => {
+    const card = new Card(cloneTemplate(cardBasketTemplate), {
+      onClick: () => events.emit('basket:remove', item)
+    })
+    return card.render({
+      price: item.price,
+      title: item.title,
+      //каждый номер карточки будет увеличен на 1
+      index: i++
+    })
+    })
+    //Отрисовываю модалку
+    modal.render({
+      content: basket.render({
+        list: basketItems,
+        total: model.getBasketPrice()
+      }
+      )
+    })
+  })
+
+
+// Удаление с корзины
+events.on('basket:remove', (item: IProduct) => {
+  model.removeFromBasket(item.id)
+  page.counter = model.getBasketAmount()
+  let i = 1
+  const basketItems = model.getBasket().map((item) => {
+    const card = new Card(cloneTemplate(cardBasketTemplate), {
+      onClick: () => events.emit('basket:remove', item)
+    })
+    return card.render({
+      price: item.price,
+      title: item.title,
+      //каждый номер карточки будет увеличен на 1
+      index: i++
+    })
+    })
+    //Отрисовываю модалку
+    modal.render({
+      content: basket.render({
+        list: basketItems,
+        total: model.getBasketPrice()
+      }
+      )
+    })
+})
+
+//Оформление заказа
+events.on('basket:order', () => {
+  modal.render({
+    content: order.render({
+      valid: false,
+      errors: [],
+      address: '',
+      payment: null
+    })
+  })
+})
+
+// Изменилось состояние валидации формы(вызывается при звполнении формы)???
+events.on('error:changed', (errors: Partial<IOrderData>) => {
+  const { email, phone, address, payment } = errors
+  order.valid = !payment && !address
+  contacts.valid = !email && !phone
+  order.errors = Object.values({address, payment}).filter(i => !!i).join('; ');
+  contacts.errors = Object.values({phone, email}).filter(i => !!i).join('; ')
+})
+
+// Изменились введенные данные
+events.on('orderInput:change', (data: { field: keyof IOrderData, value: string }) => {
+  model.addOrderField(data.field, data.value)
+  if(data.field === 'payment') {
+    order.payment = model.getField()
+  }
+})
+
+// Блокирую прокрутку страницы если открыта модалка
+events.on('modal:open', () => {
+  page.locked = true;
+});
+
+// Разблокирую прокрутку страницы если закрыта модалка
+events.on('modal:close', () => {
+  page.locked = false;
+});
+
+

@@ -16,34 +16,48 @@ interface ICardAction {
 
 //Общий класс, он же будет использоваться для корзины
 export class Card extends Component<IProduct> {
-  _price: HTMLElement
-  _title: HTMLElement
-  button?: HTMLButtonElement
+  protected _price: HTMLElement
+  protected _title: HTMLElement
+  protected _button?: HTMLButtonElement
+  protected _index?: HTMLElement;
 
     constructor(container: HTMLElement, action?: ICardAction) {
     super(container)
 
     this._price = ensureElement<HTMLElement>('.card__price', container)
     this._title = ensureElement<HTMLElement>('.card__title', container)
-    this.button = container.querySelector('.card__button')
+    //Через ensureElement<HTMLElement> index не работал, почему?
+    this._index = container.querySelector('.basket__item-index')
+    this._button = container.querySelector('.card__button')
+
 
     if(action?.onClick) {
-      if(this.button) {
-        this.button.addEventListener('click', action.onClick)
+      if(this._button) {
+        this._button.addEventListener('click', action.onClick)
       } else {
         container.addEventListener('click', action.onClick)
       }
     }
   }
-  
+
+  set button (label: string) {
+    if (this._button) {
+        this._button.textContent = label
+    }
+  }
+
+  set index(value: number) {
+    this.setText(this._index, value);
+  }
+
     set id(value: string) {
     this.container.dataset.id = value
   }
 
   set price(value: number) {
     this.setText(this._price, value ? `${value} синапсов` : 'Бесценно')
-    if(this.button) {
-      this.button.disabled = !value
+    if(this._button) {
+      this._button.disabled = !value
     }
   }
 

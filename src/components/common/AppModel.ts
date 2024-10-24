@@ -49,7 +49,8 @@ protected  formErrors: FormErrors = {}
   }
   //+//+Метод для получения списка ID товаров в корзине
   getBasket() {
-  return this.basket.map(item => item.id)
+  // return this.basket.map(item => item.id)
+  return this.basket
   }
   //Метод для установки способа оплаты
   setPaymentMethood(method: PaymentMethod) {
@@ -59,9 +60,15 @@ protected  formErrors: FormErrors = {}
   //Метод для заполнения полей email, phone, address, payment
   addOrderField(field: keyof IOrderData, value: string) {
     this.order[field] = value
+    this.validateOrder()
 
-    if(this.validateOrder()) {
-      this.events.emit('order:ready', this.order)
+  }
+
+  getField() {
+    if(this.order.payment === 'cash') {
+      return 'cash'
+    } else if (this.order.payment === 'card') {
+      return 'card'
     }
   }
 
@@ -81,7 +88,7 @@ protected  formErrors: FormErrors = {}
       errors.phone = 'Необходимо указать номер телефона'
     }
     this.formErrors = errors
-    this.events.emit('input:error', this.formErrors)
+    this.events.emit('error:changed', this.formErrors)
     // возвращается логическое значение, которое указывает, есть ли ошибки валидации. Если длина массива ключей объекта errors равна нулю, это означает, что ошибок нет, и метод возвращает true; в противном случае — false.
     return Object.keys(errors).length === 0
   }

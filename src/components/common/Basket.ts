@@ -5,9 +5,9 @@ import { IEvents } from "../base/events";
 
 
 export class Basket extends Component<IOrder> {
-  productListElement: HTMLElement
-  totalamount: HTMLElement
-  button: HTMLButtonElement
+  protected productListElement: HTMLElement
+  protected totalamount: HTMLElement
+  protected button: HTMLButtonElement
 
   constructor(container: HTMLElement, protected events: IEvents) {
     super(container)
@@ -18,7 +18,7 @@ export class Basket extends Component<IOrder> {
 
     if(this.button) {
       this.button.addEventListener('click', () =>{
-        events.emit('basket:toOrder')
+        events.emit('basket:order')
       })
     }
 

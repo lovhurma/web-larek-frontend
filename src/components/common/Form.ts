@@ -34,10 +34,14 @@ export class Form<T> extends Component<IForm> {
   //Вызывается при изменении значения в поле, передавая информацию о поле и новом значении.
   protected onInputChange(field: keyof T, value: string) {
     //В брокeре событий будут соотвутствующие слушатели, пример: order.adress:change
-    this.events.emit(`${this.container.name}.${String(field)}:change`, {
+    this.events.emit('orderInput:change', {
       field, 
       value
     })
+    // this.events.emit(`${this.container.name}.${String(field)}:change`, {
+    //   field, 
+    //   value
+    // })
   }
   //Оператор ! инвертирует значение value. Если value равно true, !value будет false, и кнопка будет активно доступной. И наоборот
   set valid(value: boolean) {
