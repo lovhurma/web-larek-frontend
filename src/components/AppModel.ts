@@ -26,7 +26,6 @@ protected  formErrors: FormErrors = {}
   getBasketAmount(): number {
     return this.basket.length
   }
-
   //+Добавление товара(карточки) в корзину
   addToBasket(card: IProduct): void {
     console.log('метод вызван')
