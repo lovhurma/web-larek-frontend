@@ -19,7 +19,7 @@ export class LarekApi extends Api {
     })
   }
   
-  //Пока используется для отправки заказа
+  //Метод используется для отправки заказа
   postOrder(order: IOrderResponse) {
     return this.post('/order', order)
     .then((data: IOrderResponse) => data)

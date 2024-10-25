@@ -178,21 +178,22 @@ events.on('basket:order', () => {
   })
 })
 
-// Изменилось состояние валидации формы(вызывается при звполнении формы)???
+// Изменилось состояние валидации формы(вызывается при заполнении формы)???
 events.on('error:changed', (errors: Partial<IOrderData>) => {
   const { email, phone, address, payment } = errors
   order.valid = !payment && !address
   contacts.valid = !email && !phone
   order.errors = Object.values({address, payment}).filter(i => !!i).join('; ');
   contacts.errors = Object.values({phone, email}).filter(i => !!i).join('; ')
+  order.payment = model.getField()
 })
 
 // Изменились введенные данные
 events.on('orderInput:change', (data: { field: keyof IOrderData, value: string }) => {
   model.addOrderField(data.field, data.value)
-  if(data.field === 'payment') {
-    order.payment = model.getField()
-  }
+  // if(data.field === 'payment') {
+  //   order.payment = model.getField()
+  // }
 })
 
 //Заполнение контактов
@@ -227,6 +228,8 @@ events.on('contacts:submit', () => {
   .then((result) => {
     console.log(payload)
     events.emit('order:success', result)
+    model.clearBasket()
+    page.counter = model.getBasketAmount()
   })
 })
 
@@ -234,8 +237,6 @@ events.on('order:success', (result: ISucces) => {
   const success = new Success(cloneTemplate(modalSuccessTmpl), {
     onClick: () => {
       modal.close()
-      model.clearBasket()
-      page.counter = model.getBasketAmount()
       order.disableButtons()
     }
   })

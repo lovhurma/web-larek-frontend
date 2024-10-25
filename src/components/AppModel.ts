@@ -57,11 +57,6 @@ protected  formErrors: FormErrors = {}
   return this.basket
   }
 
-  //Метод для установки способа оплаты
-  setPaymentMethood(method: PaymentMethod) {
-    this.order.payment = method
-  }
-
   //Метод для заполнения полей email, phone, address, payment
   addOrderField(field: keyof IOrderData, value: string) {
     this.order[field] = value
@@ -70,11 +65,7 @@ protected  formErrors: FormErrors = {}
   }
 //Полечаю поля с оплатой для презентера(добавть в описание)
   getField() {
-    if(this.order.payment === 'cash') {
-      return 'cash'
-    } else if (this.order.payment === 'card') {
-      return 'card'
-    }
+    return this.order.payment
   }
 
   getOrder() {
