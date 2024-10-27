@@ -67,6 +67,7 @@ events.on('items:changed', () => {
       image: item.image
     })
   }))
+
 })
 
 // Открытие карточки

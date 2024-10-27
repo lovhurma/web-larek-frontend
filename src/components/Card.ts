@@ -61,8 +61,15 @@ export class Card extends Component<IProduct> {
 //Карточка для каталога на главной
 export class CardCatalog extends Card {
 
-  _image: HTMLImageElement
-  _category: HTMLElement
+  protected _image: HTMLImageElement
+  protected _category: HTMLElement
+  protected _categoryColor = <Record<string, string>> {
+    "софт-скил": "soft",
+    "другое": "other",
+    "дополнительное": "additional",
+    "кнопка": "button",
+    "хард-скил": "hard"
+  }
 
   constructor(container: HTMLElement, action?: ICardAction) {
     super(container, action)
@@ -71,12 +78,14 @@ export class CardCatalog extends Card {
     this._category = ensureElement<HTMLElement>('.card__category', container)
   }
 
+
   set image(value: string) {
     this.setImage(this._image, value, this.title)
   }
 
   set category(value: string) {
     this.setText(this._category, value)
+    this._category.className = `card__category card__category_${this._categoryColor[value]}`
   }
 
 }
